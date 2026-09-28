@@ -1,0 +1,95 @@
+name: Publish plugin
+on:
+  push:
+    tags: ['v*']
+permissions:
+  contents: read
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  package:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
+        with:
+          dotnet-version: '10.0.4xx'
+      - name: Validate and package release
+        shell: pwsh
+        env:
+          RELEASE_TAG: ${{ github.ref_name }}
+          PLUGIN_REPOSITORY: ${{ github.repository }}
+          PLUGIN_CHANNEL: ${{ vars.PLUGIN_CHANNEL || 'Release' }}
+        run: ./build/Build-Release.ps1 -Tag $env:RELEASE_TAG -Repository $env:PLUGIN_REPOSITORY -Channel $env:PLUGIN_CHANNEL
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: plugin-release
+          path: artifacts/release/*
+          if-no-files-found: error
+  publish:
+    needs: package
+    runs-on: windows-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: plugin-release
+          path: release
+      - name: Verify downloaded artifacts before publication
+        shell: pwsh
+        env:
+          RELEASE_TAG: ${{ github.ref_name }}
+          PLUGIN_REPOSITORY: ${{ github.repository }}
+        run: ./build/Verify-ReleaseArtifacts.ps1 -Directory release -Tag $env:RELEASE_TAG -Repository $env:PLUGIN_REPOSITORY
+      - name: Publish verified assets
+        uses: softprops/action-gh-release@efb35369e0ad2afab669f228072c1b0d510eae64 # v3.0.3
+        with:
+          files: release/*
+          fail_on_unmatched_files: true
+          overwrite_files: false
+          draft: false
+          prerelease: ${{ vars.PLUGIN_CHANNEL == 'Beta' }}
+      # On a rerun, use the already published immutable files, not newly rebuilt ZIP bytes.
+      - name: Verify the assets actually published
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ github.ref_name }}
+          PLUGIN_REPOSITORY: ${{ github.repository }}
+        run: |
+          gh release download $env:RELEASE_TAG --repo $env:PLUGIN_REPOSITORY --dir published --pattern '*.zip' --pattern '*.manifest.json'
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
+          ./build/Verify-ReleaseArtifacts.ps1 -Directory published -Tag $env:RELEASE_TAG -Repository $env:PLUGIN_REPOSITORY
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: published-release
+          path: published/*
+          if-no-files-found: error
+#if (manifest_pr)
+  manifest:
+    needs: publish
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: published-release
+          path: release
+      - name: Submit manifest PR when configured
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ secrets.MANIFEST_TOKEN }}
+          MANIFEST_FORK: ${{ vars.MANIFEST_FORK }}
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: |
+          if (!$env:GH_TOKEN -or !$env:MANIFEST_FORK) {
+            Write-Host '::notice::Manifest PR skipped. Configure MANIFEST_TOKEN and MANIFEST_FORK as explained in the publishing guide.'
+            exit 0
+          }
+          $manifest = (Get-ChildItem release -Filter *.manifest.json).FullName
+          ./build/Submit-Manifest.ps1 -Manifest $manifest -Fork $env:MANIFEST_FORK -Tag $env:RELEASE_TAG
+#endif
+

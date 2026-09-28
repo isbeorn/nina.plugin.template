@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <PackageId>NINA.Plugin.Templates</PackageId>
+    <Version Condition="'$(TemplatePackageVersion)' != ''">$(TemplatePackageVersion)</Version>
+    <Authors>Stefan Berg and the N.I.N.A. contributors</Authors>
+    <Description>Configurable NINA plugin starter for dotnet new and Visual Studio.</Description>
+    <PackageType>Template</PackageType>
+    <PackageTags>dotnet-new;templates;nina;astronomy</PackageTags>
+    <PackageLicenseExpression>MPL-2.0</PackageLicenseExpression>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/isbeorn/nina.plugin.template</RepositoryUrl>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+    <IncludeContentInPack>true</IncludeContentInPack>
+    <EnableDefaultItems>false</EnableDefaultItems>
+    <NoDefaultExcludes>true</NoDefaultExcludes>
+    <NoWarn>$(NoWarn);NU5128;NU5110;NU5111</NoWarn>
+    <PackageOutputPath>$(MSBuildThisFileDirectory)artifacts/packages</PackageOutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="templates/**/*" Exclude="templates/**/bin/**;templates/**/obj/**;templates/**/artifacts/**;templates/**/local.props" PackagePath="content/" />
+    <Content Include="README.md" PackagePath="/" />
+  </ItemGroup>
+</Project>

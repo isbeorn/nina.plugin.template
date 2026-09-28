@@ -1,0 +1,17 @@
+<ResourceDictionary x:Class="TemplateNamespace.Features.instruction.Resources"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:TemplateNamespace.Features.instruction"
+    xmlns:nina="clr-namespace:NINA.View.Sequencer;assembly=NINA.Sequencer"
+    xmlns:logic="clr-namespace:NINA.Sequencer.Logic;assembly=NINA.Sequencer">
+    <DataTemplate DataType="{x:Type local:NotificationInstruction}">
+        <nina:SequenceBlockView>
+            <nina:SequenceBlockView.SequenceItemContent>
+                <TextBox MinWidth="160" Text="{Binding Message, UpdateSourceTrigger=PropertyChanged}" />
+            </nina:SequenceBlockView.SequenceItemContent>
+        </nina:SequenceBlockView>
+    </DataTemplate>
+    <DataTemplate x:Key="TemplateNamespace.Features.instruction.NotificationInstruction_Mini">
+        <TextBlock Text="{Binding Name}" />
+    </DataTemplate>
+</ResourceDictionary>

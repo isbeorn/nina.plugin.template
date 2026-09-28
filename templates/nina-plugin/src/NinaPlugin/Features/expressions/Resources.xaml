@@ -1,0 +1,17 @@
+<ResourceDictionary x:Class="TemplateNamespace.Features.expressions.Resources"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:TemplateNamespace.Features.expressions"
+    xmlns:nina="clr-namespace:NINA.View.Sequencer;assembly=NINA.Sequencer"
+    xmlns:logic="clr-namespace:NINA.Sequencer.Logic;assembly=NINA.Sequencer">
+    <DataTemplate DataType="{x:Type local:ExpressionDelay}">
+        <nina:SequenceBlockView>
+            <nina:SequenceBlockView.SequenceItemContent>
+                <logic:ExprControl Label="Delay" Unit="s" Exp="{Binding SecondsExpression}" />
+            </nina:SequenceBlockView.SequenceItemContent>
+        </nina:SequenceBlockView>
+    </DataTemplate>
+    <DataTemplate x:Key="TemplateNamespace.Features.expressions.ExpressionDelay_Mini">
+        <TextBlock Text="{Binding Name}" />
+    </DataTemplate>
+</ResourceDictionary>

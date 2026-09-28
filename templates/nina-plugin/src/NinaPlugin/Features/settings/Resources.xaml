@@ -1,0 +1,15 @@
+<ResourceDictionary x:Class="TemplateNamespace.Features.settings.Resources"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:TemplateNamespace.Features.settings"
+    xmlns:nina="clr-namespace:NINA.View.Sequencer;assembly=NINA.Sequencer"
+    xmlns:logic="clr-namespace:NINA.Sequencer.Logic;assembly=NINA.Sequencer">
+    <DataTemplate x:Key="OptionsTemplate">
+        <StackPanel Margin="10">
+            <TextBlock Text="Global message" />
+            <TextBox Text="{Binding Settings.GlobalMessage}" />
+            <TextBlock Margin="0,10,0,0" Text="Profile message" />
+            <TextBox Text="{Binding Settings.ProfileMessage}" />
+        </StackPanel>
+    </DataTemplate>
+</ResourceDictionary>

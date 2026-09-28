@@ -1,0 +1,17 @@
+<ResourceDictionary x:Class="TemplateNamespace.Features.messaging.Resources"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:TemplateNamespace.Features.messaging"
+    xmlns:nina="clr-namespace:NINA.View.Sequencer;assembly=NINA.Sequencer"
+    xmlns:logic="clr-namespace:NINA.Sequencer.Logic;assembly=NINA.Sequencer">
+    <DataTemplate DataType="{x:Type local:PublishMessageInstruction}">
+        <nina:SequenceBlockView>
+            <nina:SequenceBlockView.SequenceItemContent>
+                <TextBlock Text="Publish an example message to this plugin." />
+            </nina:SequenceBlockView.SequenceItemContent>
+        </nina:SequenceBlockView>
+    </DataTemplate>
+    <DataTemplate x:Key="TemplateNamespace.Features.messaging.PublishMessageInstruction_Mini">
+        <TextBlock Text="{Binding Name}" />
+    </DataTemplate>
+</ResourceDictionary>

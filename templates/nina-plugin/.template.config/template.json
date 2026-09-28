@@ -1,0 +1,472 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "N.I.N.A. contributors",
+  "classifications": [
+    "NINA",
+    "Desktop",
+    "Plugin"
+  ],
+  "identity": "NINA.Plugin.Templates.Plugin",
+  "name": "NINA Plugin",
+  "shortName": "nina-plugin",
+  "sourceName": "NinaPlugin",
+  "preferNameDirectory": true,
+  "tags": {
+    "language": "C#",
+    "type": "project"
+  },
+  "guids": [
+    "7394B393-0543-436D-9960-68E00D93A486"
+  ],
+  "symbols": {
+    "instruction": {
+      "type": "parameter",
+      "datatype": "bool",
+      "defaultValue": "false",
+      "description": "Notification instruction",
+      "displayName": "Notification instruction"
+    },
+    "condition": {
+      "type": "parameter",
+      "datatype": "bool",
+      "defaultValue": "false",
+      "description": "Boolean sequence condition",
+      "displayName": "Boolean sequence condition"
+    },
+    "trigger": {
+      "type": "parameter",
+      "datatype": "bool",
+      "defaultValue": "false",
+      "description": "Deterministic sequence trigger",
+      "displayName": "Deterministic sequence trigger"
+    },
+    "container": {
+      "type": "parameter",
+      "datatype": "bool",
+      "defaultValue": "false",
+      "description": "Sequential container",
+      "displayName": "Sequential container"
+    },
+    "expressions": {
+      "type": "parameter",
+      "datatype": "bool",
+      "defaultValue": "false",
+      "description": "Expression-backed delay",
+      "displayName": "Expression-backed delay"
+    },
+    "sequence_upgrader": {
+      "type": "parameter",
+      "datatype": "bool",
+      "defaultValue": "false",
+      "description": "Legacy configuration migration",
+      "displayName": "Legacy configuration migration"
+    },
+    "settings": {
+      "type": "parameter",
+      "datatype": "bool",
+      "defaultValue": "false",
+      "description": "Global and profile settings",
+      "displayName": "Global and profile settings"
+    },
+    "dock_panel": {
+      "type": "parameter",
+      "datatype": "bool",
+      "defaultValue": "false",
+      "description": "Telescope status panel",
+      "displayName": "Telescope status panel"
+    },
+    "image_hooks": {
+      "type": "parameter",
+      "datatype": "bool",
+      "defaultValue": "false",
+      "description": "Image metadata and file patterns",
+      "displayName": "Image metadata and file patterns"
+    },
+    "weather_provider": {
+      "type": "parameter",
+      "datatype": "bool",
+      "defaultValue": "false",
+      "description": "Simulated weather provider",
+      "displayName": "Simulated weather provider"
+    },
+    "messaging": {
+      "type": "parameter",
+      "datatype": "bool",
+      "defaultValue": "false",
+      "description": "Message broker example",
+      "displayName": "Message broker example"
+    },
+    "symbols": {
+      "type": "parameter",
+      "datatype": "bool",
+      "defaultValue": "false",
+      "description": "Expression symbols and function",
+      "displayName": "Expression symbols and function"
+    },
+    "star_annotation": {
+      "type": "parameter",
+      "datatype": "bool",
+      "defaultValue": "false",
+      "description": "Star annotation behavior",
+      "displayName": "Star annotation behavior"
+    },
+    "editor_integration": {
+      "type": "parameter",
+      "datatype": "bool",
+      "defaultValue": "false",
+      "description": "Coupled edits with undo/redo",
+      "displayName": "Coupled edits with undo/redo"
+    },
+    "tests": {
+      "type": "parameter",
+      "datatype": "bool",
+      "defaultValue": "true",
+      "description": "Include NUnit tests"
+    },
+    "github_actions": {
+      "type": "parameter",
+      "datatype": "bool",
+      "defaultValue": "false",
+      "description": "Include build and publishing workflows"
+    },
+    "manifest_pr": {
+      "type": "parameter",
+      "datatype": "bool",
+      "defaultValue": "false",
+      "description": "Offer central manifest PR submission"
+    },
+    "has_ci": {
+      "type": "computed",
+      "value": "github_actions || manifest_pr"
+    },
+    "has_features": {
+      "type": "computed",
+      "value": "instruction || condition || trigger || container || expressions || sequence_upgrader || settings || dock_panel || image_hooks || weather_provider || messaging || symbols || star_annotation || editor_integration"
+    },
+    "Framework": {
+      "type": "parameter",
+      "datatype": "choice",
+      "choices": [
+        {
+          "choice": "net10.0-windows",
+          "description": "NINA 3.3 (.NET 10)"
+        }
+      ],
+      "defaultValue": "net10.0-windows",
+      "description": "Target framework"
+    },
+    "namespace": {
+      "type": "parameter",
+      "datatype": "text",
+      "description": "Root namespace (defaults to project name)"
+    },
+    "namespaceValue": {
+      "type": "generated",
+      "generator": "coalesce",
+      "parameters": {
+        "sourceVariableName": "namespace",
+        "fallbackVariableName": "name"
+      }
+    },
+    "namespaceSafe": {
+      "type": "derived",
+      "valueSource": "namespaceValue",
+      "valueTransform": "safe_namespace",
+      "replaces": "TemplateNamespace"
+    },
+    "projectSafe": {
+      "type": "derived",
+      "valueSource": "name",
+      "valueTransform": "safe_name",
+      "replaces": "TemplateAssembly",
+      "fileRename": "NinaPlugin"
+    },
+    "displayName": {
+      "type": "parameter",
+      "datatype": "text",
+      "defaultValue": "My NINA Plugin",
+      "description": "Display name in NINA"
+    },
+    "displayNameXml": {
+      "type": "derived",
+      "valueSource": "displayName",
+      "valueTransform": "metadata",
+      "replaces": "META_DISPLAYNAME"
+    },
+    "author": {
+      "type": "parameter",
+      "datatype": "text",
+      "defaultValue": "Plugin Author",
+      "description": "Plugin author"
+    },
+    "authorXml": {
+      "type": "derived",
+      "valueSource": "author",
+      "valueTransform": "metadata",
+      "replaces": "META_AUTHOR"
+    },
+    "description": {
+      "type": "parameter",
+      "datatype": "text",
+      "defaultValue": "A NINA plugin.",
+      "description": "Short description"
+    },
+    "descriptionXml": {
+      "type": "derived",
+      "valueSource": "description",
+      "valueTransform": "metadata",
+      "replaces": "META_DESCRIPTION"
+    },
+    "longDescription": {
+      "type": "parameter",
+      "datatype": "text",
+      "defaultValue": "",
+      "description": "Long description"
+    },
+    "longDescriptionXml": {
+      "type": "derived",
+      "valueSource": "longDescription",
+      "valueTransform": "metadata",
+      "replaces": "META_LONGDESCRIPTION"
+    },
+    "repository": {
+      "type": "parameter",
+      "datatype": "text",
+      "defaultValue": "",
+      "description": "Public source repository URL"
+    },
+    "repositoryXml": {
+      "type": "derived",
+      "valueSource": "repository",
+      "valueTransform": "metadata",
+      "replaces": "META_REPOSITORY"
+    },
+    "homepage": {
+      "type": "parameter",
+      "datatype": "text",
+      "defaultValue": "",
+      "description": "Optional homepage URL"
+    },
+    "homepageXml": {
+      "type": "derived",
+      "valueSource": "homepage",
+      "valueTransform": "metadata",
+      "replaces": "META_HOMEPAGE"
+    },
+    "tags": {
+      "type": "parameter",
+      "datatype": "text",
+      "defaultValue": "",
+      "description": "Comma-separated tags"
+    },
+    "tagsXml": {
+      "type": "derived",
+      "valueSource": "tags",
+      "valueTransform": "metadata",
+      "replaces": "META_TAGS"
+    },
+    "no_restore": {
+      "type": "parameter",
+      "datatype": "bool",
+      "defaultValue": "false",
+      "description": "Skip restore after creation"
+    }
+  },
+  "forms": {
+    "metadata": {
+      "identifier": "chain",
+      "steps": [
+        "escapePercent",
+        "escapeDollar",
+        "escapeAt",
+        "escapeSemi",
+        "xmlEncode",
+        "encodeCr",
+        "encodeLf"
+      ]
+    },
+    "escapePercent": {
+      "identifier": "replace",
+      "pattern": "%",
+      "replacement": "%25"
+    },
+    "escapeDollar": {
+      "identifier": "replace",
+      "pattern": "\\$",
+      "replacement": "%24"
+    },
+    "escapeAt": {
+      "identifier": "replace",
+      "pattern": "@",
+      "replacement": "%40"
+    },
+    "escapeSemi": {
+      "identifier": "replace",
+      "pattern": ";",
+      "replacement": "%3B"
+    },
+    "encodeCr": {
+      "identifier": "replace",
+      "pattern": "\r",
+      "replacement": "&#13;"
+    },
+    "encodeLf": {
+      "identifier": "replace",
+      "pattern": "\n",
+      "replacement": "&#10;"
+    }
+  },
+  "sources": [
+    {
+      "source": "./",
+      "target": "./",
+      "exclude": [
+        "**/bin/**",
+        "**/obj/**",
+        ".template.config/**",
+        "**/artifacts/**",
+        "local.props"
+      ],
+      "modifiers": [
+        {
+          "condition": "(!instruction)",
+          "exclude": [
+            "src/NinaPlugin/Features/instruction/**",
+            "tests/NinaPlugin.Tests/Features/instruction/**"
+          ]
+        },
+        {
+          "condition": "(!condition)",
+          "exclude": [
+            "src/NinaPlugin/Features/condition/**",
+            "tests/NinaPlugin.Tests/Features/condition/**"
+          ]
+        },
+        {
+          "condition": "(!trigger)",
+          "exclude": [
+            "src/NinaPlugin/Features/trigger/**",
+            "tests/NinaPlugin.Tests/Features/trigger/**"
+          ]
+        },
+        {
+          "condition": "(!container)",
+          "exclude": [
+            "src/NinaPlugin/Features/container/**",
+            "tests/NinaPlugin.Tests/Features/container/**"
+          ]
+        },
+        {
+          "condition": "(!expressions)",
+          "exclude": [
+            "src/NinaPlugin/Features/expressions/**",
+            "tests/NinaPlugin.Tests/Features/expressions/**"
+          ]
+        },
+        {
+          "condition": "(!sequence_upgrader)",
+          "exclude": [
+            "src/NinaPlugin/Features/sequence_upgrader/**",
+            "tests/NinaPlugin.Tests/Features/sequence_upgrader/**"
+          ]
+        },
+        {
+          "condition": "(!settings)",
+          "exclude": [
+            "src/NinaPlugin/Features/settings/**",
+            "tests/NinaPlugin.Tests/Features/settings/**"
+          ]
+        },
+        {
+          "condition": "(!dock_panel)",
+          "exclude": [
+            "src/NinaPlugin/Features/dock_panel/**",
+            "tests/NinaPlugin.Tests/Features/dock_panel/**"
+          ]
+        },
+        {
+          "condition": "(!image_hooks)",
+          "exclude": [
+            "src/NinaPlugin/Features/image_hooks/**",
+            "tests/NinaPlugin.Tests/Features/image_hooks/**"
+          ]
+        },
+        {
+          "condition": "(!weather_provider)",
+          "exclude": [
+            "src/NinaPlugin/Features/weather_provider/**",
+            "tests/NinaPlugin.Tests/Features/weather_provider/**"
+          ]
+        },
+        {
+          "condition": "(!messaging)",
+          "exclude": [
+            "src/NinaPlugin/Features/messaging/**",
+            "tests/NinaPlugin.Tests/Features/messaging/**"
+          ]
+        },
+        {
+          "condition": "(!symbols)",
+          "exclude": [
+            "src/NinaPlugin/Features/symbols/**",
+            "tests/NinaPlugin.Tests/Features/symbols/**"
+          ]
+        },
+        {
+          "condition": "(!star_annotation)",
+          "exclude": [
+            "src/NinaPlugin/Features/star_annotation/**",
+            "tests/NinaPlugin.Tests/Features/star_annotation/**"
+          ]
+        },
+        {
+          "condition": "(!editor_integration)",
+          "exclude": [
+            "src/NinaPlugin/Features/editor_integration/**",
+            "tests/NinaPlugin.Tests/Features/editor_integration/**"
+          ]
+        },
+        {
+          "condition": "(!tests)",
+          "exclude": [
+            "tests/**"
+          ]
+        },
+        {
+          "condition": "(!has_ci)",
+          "exclude": [
+            ".github/**"
+          ]
+        },
+        {
+          "condition": "(!manifest_pr)",
+          "exclude": [
+            "build/Submit-Manifest.ps1"
+          ]
+        }
+      ]
+    }
+  ],
+  "primaryOutputs": [
+    {
+      "path": "src/NinaPlugin/NinaPlugin.csproj"
+    },
+    {
+      "condition": "tests",
+      "path": "tests/NinaPlugin.Tests/NinaPlugin.Tests.csproj"
+    }
+  ],
+  "postActions": [
+    {
+      "description": "Restore the generated solution.",
+      "actionId": "210D431B-A78B-4D2F-B762-4ED3E3EA9025",
+      "continueOnError": true,
+      "manualInstructions": [
+        {
+          "text": "Run dotnet restore, then dotnet test."
+        }
+      ],
+      "condition": "(!no_restore)"
+    }
+  ]
+}

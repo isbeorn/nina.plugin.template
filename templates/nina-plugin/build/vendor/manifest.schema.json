@@ -1,0 +1,199 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+        "Name" : {
+            "type": "string",
+            "maxLength": 50
+        },
+        "Identifier" : {
+            "type": "string",
+            "format": "uuid"
+        },
+        "Version" : {
+            "type": "object",
+            "properties": {
+                "Major": {
+                    "anyOf": [
+                        {
+                            "type": "string",
+                            "pattern": "^\\d+$"
+                        },
+                        {
+                            "type": "number"
+                        }
+                    ]
+                },
+                "Minor": {
+                    "anyOf": [
+                        {
+                            "type": "string",
+                            "pattern": "^\\d+$"
+                        },
+                        {
+                            "type": "number"
+                        }
+                    ]
+                },
+                "Patch": {
+                    "anyOf": [
+                        {
+                            "type": "string",
+                            "pattern": "^\\d+$"
+                        },
+                        {
+                            "type": "number"
+                        }
+                    ]
+                },
+                "Build": {
+                    "anyOf": [
+                        {
+                            "type": "string",
+                            "pattern": "^\\d+$"
+                        },
+                        {
+                            "type": "number"
+                        }
+                    ]
+                }
+            },
+              "required": ["Major", "Minor", "Patch", "Build"]
+        },
+        "Author" : {
+            "type": "string",
+            "maxLength": 256
+        },
+        "Homepage" : {
+            "type": "string",
+            "format": "uri-reference"
+        },
+        "Repository" : {
+            "type": "string",
+            "format": "uri-reference"
+        },
+        "License" : {
+            "type": "string",
+            "maxLength": 512
+        },
+        "LicenseURL" : {
+            "type": "string",
+            "format": "uri-reference"
+        },
+        "ChangelogURL" : {
+            "type": "string",
+            "format": "uri-reference"
+        },
+        "Tags": {
+            "type": "array",
+            "items": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 30
+            },
+            "maxItems": 20
+        },
+        "MinimumApplicationVersion": {
+            "type": "object",
+            "properties": {
+                "Major": {
+                    "anyOf": [
+                        {
+                            "type": "string",
+                            "pattern": "^\\d+$"
+                        },
+                        {
+                            "type": "number"
+                        }
+                    ]
+                },
+                "Minor": {
+                    "anyOf": [
+                        {
+                            "type": "string",
+                            "pattern": "^\\d+$"
+                        },
+                        {
+                            "type": "number"
+                        }
+                    ]
+                },
+                "Patch": {
+                    "anyOf": [
+                        {
+                            "type": "string",
+                            "pattern": "^\\d+$"
+                        },
+                        {
+                            "type": "number"
+                        }
+                    ]
+                },
+                "Build": {
+                    "anyOf": [
+                        {
+                            "type": "string",
+                            "pattern": "^\\d+$"
+                        },
+                        {
+                            "type": "number"
+                        }
+                    ]
+                }
+            },
+              "required": ["Major", "Minor", "Patch", "Build"]
+        },
+        "Descriptions": {
+            "type": "object",
+            "properties": {
+                "ShortDescription": {
+                    "type": "string",
+                    "maxLength": 256
+                },
+                "LongDescription": {
+                    "type": "string",
+                    "maxLength": 10000
+                },
+                "FeaturedImageURL": {
+                    "type": "string",
+                    "format": "uri-reference"
+                },
+                "ScreenshotURL": {
+                    "type": "string",
+                    "format": "uri-reference"
+                },
+                "AltScreenshotURL": {
+                    "type": "string",
+                    "format": "uri-reference"
+                }
+            },
+              "required": ["ShortDescription"]
+        },
+
+        "Installer": {
+            "type": "object",
+            "properties": {
+                "URL": {
+                    "type": "string",
+                    "format": "uri-reference"
+                },
+                "Checksum": {
+                    "type": "string",
+                    "minLength": 32,
+                    "maxLength": 64,
+                    "pattern": "^[A-Fa-f0-9]{32,64}$"
+                },
+                "ChecksumType": {
+                    "type": "string",
+                    "enum": ["MD5","SHA1","SHA256"]
+                },
+                "Type": {
+                    "type": "string",
+                    "enum": ["DLL", "ARCHIVE"]
+                }
+            },
+              "required": ["URL", "Checksum", "ChecksumType", "Type"]
+        }
+    },
+    "required": ["Name", "Identifier", "Version", "Author", "Repository", "License", "LicenseURL", "MinimumApplicationVersion", "Descriptions", "Installer"]
+}

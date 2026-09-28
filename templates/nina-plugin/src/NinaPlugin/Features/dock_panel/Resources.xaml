@@ -1,0 +1,13 @@
+<ResourceDictionary x:Class="TemplateNamespace.Features.dock_panel.Resources"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:TemplateNamespace.Features.dock_panel"
+    xmlns:nina="clr-namespace:NINA.View.Sequencer;assembly=NINA.Sequencer"
+    xmlns:logic="clr-namespace:NINA.Sequencer.Logic;assembly=NINA.Sequencer">
+    <DataTemplate x:Key="TemplateNamespace.Features.dock_panel.TelescopePanel_Dockable">
+        <StackPanel Margin="10">
+            <TextBlock Text="Telescope connected" />
+            <CheckBox IsHitTestVisible="False" Focusable="False" IsChecked="{Binding Connected, Mode=OneWay}" />
+        </StackPanel>
+    </DataTemplate>
+</ResourceDictionary>

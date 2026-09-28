@@ -1,0 +1,42 @@
+<Project>
+  <!-- This is the single editable source of plugin identity and manifest metadata. -->
+  <PropertyGroup>
+    <PluginId>7394B393-0543-436D-9960-68E00D93A486</PluginId>
+    <Version Condition="'$(Version)' == ''">1.0.0.0</Version>
+    <AssemblyVersion>$(Version)</AssemblyVersion>
+    <FileVersion>$(Version)</FileVersion>
+    <Title>META_DISPLAYNAME</Title>
+    <AssemblyTitle>$(Title)</AssemblyTitle>
+    <Product>$(Title)</Product>
+    <Copyright></Copyright>
+    <Company>META_AUTHOR</Company>
+    <Authors>META_AUTHOR</Authors>
+    <Description>META_DESCRIPTION</Description>
+    <PluginLongDescription>META_LONGDESCRIPTION</PluginLongDescription>
+    <RepositoryUrl>META_REPOSITORY</RepositoryUrl>
+    <PluginHomepage>META_HOMEPAGE</PluginHomepage>
+    <PluginTags>META_TAGS</PluginTags>
+    <MinimumNinaVersion>3.3.0.1060</MinimumNinaVersion>
+    <PluginLicense>MPL-2.0</PluginLicense>
+    <PluginLicenseUrl>https://www.mozilla.org/en-US/MPL/2.0/</PluginLicenseUrl>
+    <PluginChangelogUrl></PluginChangelogUrl>
+    <PluginFeaturedImageUrl></PluginFeaturedImageUrl>
+    <PluginScreenshotUrl></PluginScreenshotUrl>
+    <PluginAltScreenshotUrl></PluginAltScreenshotUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.InteropServices.GuidAttribute"><_Parameter1>$(PluginId)</_Parameter1></AssemblyAttribute>
+    <AssemblyAttribute Include="System.Runtime.InteropServices.ComVisibleAttribute"><_Parameter1>false</_Parameter1></AssemblyAttribute>
+    <AssemblyMetadata Include="MinimumApplicationVersion" Value="$(MinimumNinaVersion)" />
+    <AssemblyMetadata Include="License" Value="$(PluginLicense)" />
+    <AssemblyMetadata Include="LicenseURL" Value="$(PluginLicenseUrl)" />
+    <AssemblyMetadata Include="Repository" Value="$(RepositoryUrl)" />
+    <AssemblyMetadata Include="Homepage" Value="$(PluginHomepage)" />
+    <AssemblyMetadata Include="Tags" Value="$(PluginTags)" />
+    <AssemblyMetadata Include="LongDescription" Value="$(PluginLongDescription)" />
+    <AssemblyMetadata Include="ChangelogURL" Value="$(PluginChangelogUrl)" />
+    <AssemblyMetadata Include="FeaturedImageURL" Value="$(PluginFeaturedImageUrl)" />
+    <AssemblyMetadata Include="ScreenshotURL" Value="$(PluginScreenshotUrl)" />
+    <AssemblyMetadata Include="AltScreenshotURL" Value="$(PluginAltScreenshotUrl)" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="src/NinaPlugin/NinaPlugin.csproj" />
+  <!--#if (tests) -->
+  <Project Path="tests/NinaPlugin.Tests/NinaPlugin.Tests.csproj" />
+  <!--#endif -->
+</Solution>

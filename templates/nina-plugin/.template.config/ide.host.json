@@ -1,0 +1,131 @@
+{
+  "$schema": "http://json.schemastore.org/vs-2017.3.host",
+  "order": 100,
+  "symbolInfo": [
+    {
+      "id": "instruction",
+      "name": "Notification instruction",
+      "isVisible": true
+    },
+    {
+      "id": "condition",
+      "name": "Boolean sequence condition",
+      "isVisible": true
+    },
+    {
+      "id": "trigger",
+      "name": "Deterministic sequence trigger",
+      "isVisible": true
+    },
+    {
+      "id": "container",
+      "name": "Sequential container",
+      "isVisible": true
+    },
+    {
+      "id": "expressions",
+      "name": "Expression-backed delay",
+      "isVisible": true
+    },
+    {
+      "id": "sequence_upgrader",
+      "name": "Legacy configuration migration",
+      "isVisible": true
+    },
+    {
+      "id": "settings",
+      "name": "Global and profile settings",
+      "isVisible": true
+    },
+    {
+      "id": "dock_panel",
+      "name": "Telescope status panel",
+      "isVisible": true
+    },
+    {
+      "id": "image_hooks",
+      "name": "Image metadata and file patterns",
+      "isVisible": true
+    },
+    {
+      "id": "weather_provider",
+      "name": "Simulated weather provider",
+      "isVisible": true
+    },
+    {
+      "id": "messaging",
+      "name": "Message broker example",
+      "isVisible": true
+    },
+    {
+      "id": "symbols",
+      "name": "Expression symbols and function",
+      "isVisible": true
+    },
+    {
+      "id": "star_annotation",
+      "name": "Star annotation behavior",
+      "isVisible": true
+    },
+    {
+      "id": "editor_integration",
+      "name": "Coupled edits with undo/redo",
+      "isVisible": true
+    },
+    {
+      "id": "tests",
+      "name": "Include NUnit tests",
+      "isVisible": true
+    },
+    {
+      "id": "github_actions",
+      "name": "Include build and publishing workflows",
+      "isVisible": true
+    },
+    {
+      "id": "manifest_pr",
+      "name": "Offer central manifest PR submission",
+      "isVisible": true
+    },
+    {
+      "id": "namespace",
+      "name": "Root namespace (defaults to project name)",
+      "isVisible": true
+    },
+    {
+      "id": "displayName",
+      "name": "Display name in NINA",
+      "isVisible": true
+    },
+    {
+      "id": "author",
+      "name": "Plugin author",
+      "isVisible": true
+    },
+    {
+      "id": "description",
+      "name": "Short description",
+      "isVisible": true
+    },
+    {
+      "id": "longDescription",
+      "name": "Long description",
+      "isVisible": true
+    },
+    {
+      "id": "repository",
+      "name": "Public source repository URL",
+      "isVisible": true
+    },
+    {
+      "id": "homepage",
+      "name": "Optional homepage URL",
+      "isVisible": true
+    },
+    {
+      "id": "tags",
+      "name": "Comma-separated tags",
+      "isVisible": true
+    }
+  ]
+}

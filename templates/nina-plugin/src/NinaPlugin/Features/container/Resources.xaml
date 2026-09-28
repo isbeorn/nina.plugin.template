@@ -1,0 +1,10 @@
+<ResourceDictionary x:Class="TemplateNamespace.Features.container.Resources"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:TemplateNamespace.Features.container"
+    xmlns:nina="clr-namespace:NINA.View.Sequencer;assembly=NINA.Sequencer"
+    xmlns:logic="clr-namespace:NINA.Sequencer.Logic;assembly=NINA.Sequencer">
+    <DataTemplate DataType="{x:Type local:ExampleContainer}">
+        <nina:SequenceContainerView />
+    </DataTemplate>
+</ResourceDictionary>

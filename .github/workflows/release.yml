@@ -1,0 +1,83 @@
+name: Publish template
+on:
+  push:
+    tags: ['v*']
+permissions:
+  contents: read
+concurrency:
+  group: template-release-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  validate:
+    runs-on: windows-latest
+    outputs:
+      version: ${{ steps.release.outputs.version }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Validate template version tag
+        id: release
+        shell: pwsh
+        env:
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: |
+          $release = ./scripts/Get-TemplateRelease.ps1 -Tag $env:RELEASE_TAG
+          "version=$($release.Version)" >> $env:GITHUB_OUTPUT
+  verify:
+    needs: validate
+    uses: ./.github/workflows/verify.yml
+    with:
+      package-version: ${{ needs.validate.outputs.version }}
+  publish:
+    needs: verify
+    runs-on: windows-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
+        with:
+          dotnet-version: '10.0.4xx'
+      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: NINA.Plugin.Templates
+          path: release
+      - name: Validate the tested package and create its fixed download name
+        id: package
+        shell: pwsh
+        env:
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: |
+          $packages = @(Get-ChildItem release -Filter *.nupkg)
+          if ($packages.Count -ne 1) { throw 'Expected exactly one tested template package.' }
+          $release = ./scripts/Get-TemplateRelease.ps1 -Tag $env:RELEASE_TAG -Package $packages[0].FullName
+          "version=$($release.Version)" >> $env:GITHUB_OUTPUT
+          Copy-Item -LiteralPath $packages[0].FullName -Destination release/NINA.Plugin.Templates.nupkg
+      - name: Publish template to NuGet.org
+        shell: pwsh
+        env:
+          NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: ./scripts/Publish-Template.ps1 -Tag $env:RELEASE_TAG -Directory release
+      - name: Publish downloadable template
+        uses: softprops/action-gh-release@efb35369e0ad2afab669f228072c1b0d510eae64 # v3.0.3
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: NINA Plugin Templates ${{ github.ref_name }}
+          files: release/*.nupkg
+          fail_on_unmatched_files: true
+          overwrite_files: false
+          draft: false
+          prerelease: false
+          body: |
+            Install directly from NuGet.org:
+
+            ```powershell
+            dotnet new install NINA.Plugin.Templates@${{ steps.package.outputs.version }}
+            dotnet new nina-plugin -n MyPlugin
+            ```
+
+            Alternatively, download **NINA.Plugin.Templates.nupkg** and run `dotnet new install ./NINA.Plugin.Templates.nupkg`.
+
+            Windows, the .NET 10.0.4xx SDK and PowerShell 7 are required. The same installed template appears as **NINA Plugin** in Visual Studio.
+
+            See the [developer handbook](https://github.com/isbeorn/nina.plugin.template/tree/${{ github.ref_name }}/docs) for feature options and setup.

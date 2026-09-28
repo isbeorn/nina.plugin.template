@@ -1,0 +1,7 @@
+<Project>
+  <PropertyGroup>
+    <NinaExecutable>C:\Program Files\N.I.N.A. - Nighttime Imaging 'N' Astronomy\NINA.exe</NinaExecutable>
+    <!-- Override for a separate test installation if needed. -->
+    <!-- <PluginDeployDirectory>C:\NinaPluginTest\MyPlugin</PluginDeployDirectory> -->
+  </PropertyGroup>
+</Project>

@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="../../Plugin.props" />
+  <PropertyGroup>
+    <RootNamespace>TemplateNamespace</RootNamespace>
+    <AssemblyName>TemplateAssembly</AssemblyName>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="NINA.Plugin" Version="$(NinaPackageVersion)" />
+    <!--#if (expressions) -->
+    <PackageReference Include="NINA.Sequencer.Generators" Version="$(NinaPackageVersion)" PrivateAssets="analyzers;build;buildTransitive;contentFiles" />
+    <!--#endif -->
+  </ItemGroup>
+  <Import Project="../../build/Plugin.targets" />
+</Project>

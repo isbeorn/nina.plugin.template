@@ -1,0 +1,64 @@
+{
+  "symbolInfo": {
+    "instruction": {
+      "longName": "instruction"
+    },
+    "condition": {
+      "longName": "condition"
+    },
+    "trigger": {
+      "longName": "trigger"
+    },
+    "container": {
+      "longName": "container"
+    },
+    "expressions": {
+      "longName": "expressions"
+    },
+    "sequence_upgrader": {
+      "longName": "sequence-upgrader"
+    },
+    "settings": {
+      "longName": "settings"
+    },
+    "dock_panel": {
+      "longName": "dock-panel"
+    },
+    "image_hooks": {
+      "longName": "image-hooks"
+    },
+    "weather_provider": {
+      "longName": "weather-provider"
+    },
+    "messaging": {
+      "longName": "messaging"
+    },
+    "symbols": {
+      "longName": "symbols"
+    },
+    "star_annotation": {
+      "longName": "star-annotation"
+    },
+    "editor_integration": {
+      "longName": "editor-integration"
+    },
+    "github_actions": {
+      "longName": "github-actions"
+    },
+    "manifest_pr": {
+      "longName": "manifest-pr"
+    },
+    "displayName": {
+      "longName": "displayName"
+    },
+    "longDescription": {
+      "longName": "longDescription"
+    },
+    "no_restore": {
+      "longName": "no-restore"
+    },
+    "author": {
+      "longName": "plugin-author"
+    }
+  }
+}
