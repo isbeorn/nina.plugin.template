@@ -29,6 +29,7 @@ $temporaryRoot = [IO.Path]::GetFullPath([IO.Path]::GetTempPath()).TrimEnd([IO.Pa
 $temporary = Join-Path $temporaryRoot ('nina-template-release-' + [guid]::NewGuid().ToString('N'))
 New-Item -ItemType Directory -Path $temporary | Out-Null
 $savedKey = $env:NUGET_API_KEY
+$savedExitCode = $global:LASTEXITCODE
 try {
     foreach ($releaseTag in @('v1.0.0','v2.4.6')) {
         $fromTag = & "$PSScriptRoot/Get-TemplateRelease.ps1" -Tag $releaseTag
@@ -77,8 +78,10 @@ try {
     Should-Fail { & "$PSScriptRoot/Publish-Template.ps1" -Tag $tag -Directory $packageDirectory } 'NuGet publishing failed with exit code 17'
 } finally {
     $env:NUGET_API_KEY = $savedKey
+    $global:LASTEXITCODE = $savedExitCode
     $resolved = (Resolve-Path -LiteralPath $temporary).Path
     if (!$resolved.StartsWith($temporaryRoot + [IO.Path]::DirectorySeparatorChar, [StringComparison]::OrdinalIgnoreCase) -or (Split-Path $resolved -Leaf) -notmatch '^nina-template-release-[a-f0-9]{32}$') { throw 'Unexpected test cleanup path.' }
     Remove-Item -LiteralPath $resolved -Recurse -Force
 }
+Assert ($global:LASTEXITCODE -eq 0) 'Release tests left a failing native exit code for the CI shell.'
 Write-Host 'PASS: tag-derived package versions, package identity/version, missing credentials, publication reruns and failed uploads.'
