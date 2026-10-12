@@ -22,7 +22,7 @@ jobs:
           PLUGIN_REPOSITORY: ${{ github.repository }}
           PLUGIN_CHANNEL: ${{ vars.PLUGIN_CHANNEL || 'Release' }}
         run: ./build/Build-Release.ps1 -Tag $env:RELEASE_TAG -Repository $env:PLUGIN_REPOSITORY -Channel $env:PLUGIN_CHANNEL
-      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: plugin-release
           path: artifacts/release/*
@@ -63,7 +63,7 @@ jobs:
           gh release download $env:RELEASE_TAG --repo $env:PLUGIN_REPOSITORY --dir published --pattern '*.zip' --pattern '*.manifest.json'
           if ($LASTEXITCODE) { exit $LASTEXITCODE }
           ./build/Verify-ReleaseArtifacts.ps1 -Directory published -Tag $env:RELEASE_TAG -Repository $env:PLUGIN_REPOSITORY
-      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: published-release
           path: published/*
